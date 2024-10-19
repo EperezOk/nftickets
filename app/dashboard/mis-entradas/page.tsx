@@ -46,11 +46,11 @@ export default function MisEntradas() {
               <p className="mt-2">ID de Entrada: #{ticket.id}</p>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button className="mt-4 w-full text-accent-foreground">Revender Entrada</Button>
+                  <Button className="mt-4 w-full">Revender Entrada</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] bg-accent">
                   <DialogHeader>
-                    <DialogTitle>Revender Entrada</DialogTitle>
+                    <DialogTitle className="text-accent-foreground">Revender Entrada</DialogTitle>
                     <DialogDescription>
                       Ingresa el precio al que deseas revender tu entrada.
                     </DialogDescription>
