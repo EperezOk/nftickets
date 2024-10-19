@@ -48,7 +48,7 @@ export default function MisEntradas() {
                 <DialogTrigger asChild>
                   <Button className="mt-4 w-full">Revender Entrada</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className="sm:max-w-[425px] bg-accent">
                   <DialogHeader>
                     <DialogTitle>Revender Entrada</DialogTitle>
                     <DialogDescription>

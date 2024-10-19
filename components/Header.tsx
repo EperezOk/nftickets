@@ -21,7 +21,11 @@ const Header = () => {
         <li key={item.href}>
           <Link 
             href={item.href} 
-            className={`block py-2 ${mobile ? 'text-primary hover:bg-primary/10' : 'hover:underline'}`}
+            className={`block py-2 ${
+              mobile 
+                ? 'text-foreground hover:bg-background hover:text-accent-foreground rounded-md px-2 transition-colors'
+                : 'hover:underline'
+            }`}
             onClick={() => setIsOpen(false)}
           >
             {item.label}
@@ -67,7 +71,10 @@ const Header = () => {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+        <SheetContent 
+          side="right" 
+          className="w-[300px] sm:w-[400px] bg-accent border-l border-border"
+        >
           <nav className="flex flex-col space-y-4 mt-8">
             <ul className="space-y-2">
               <NavLinks mobile />
