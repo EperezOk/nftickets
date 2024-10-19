@@ -23,7 +23,7 @@ const Header = () => {
             href={item.href} 
             className={`block py-2 ${
               mobile 
-                ? 'text-foreground hover:bg-background hover:text-accent-foreground rounded-md px-2 transition-colors'
+                ? 'text-accent-foreground hover:bg-background hover:text-foreground rounded-md px-2 transition-colors'
                 : 'hover:underline'
             }`}
             onClick={() => setIsOpen(false)}
@@ -40,7 +40,7 @@ const Header = () => {
       <Button 
         variant={mobile ? "outline" : "secondary"} 
         onClick={() => setIsOpen(false)}
-        className={mobile ? "w-full justify-start" : ""}
+        className={mobile ? "w-full justify-start text-accent-foreground" : ""}
       >
         Registrarse
       </Button>
