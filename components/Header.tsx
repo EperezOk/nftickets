@@ -5,15 +5,37 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useAuthStore } from '@/store/auth-store'
+import { useRouter } from 'next/navigation'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  const { userType, setUserType } = useAuthStore()
 
   const navItems = [
-    { href: '/dashboard', label: 'Dashboard' },
+    ...(userType ? [{ href: '/dashboard', label: 'Dashboard' }] : []),
     { href: '/productoras', label: 'Productoras' },
     { href: '/reventas', label: 'Reventas' },
   ]
+
+  const loginAs = (userType: 'buyer' | 'producer') => {
+    setUserType(userType)
+    if (userType === "producer") router.push('/productoras')
+    else router.push('/')
+  }
+
+  const handleLogout = () => {
+    setUserType(null)
+    router.push('/')
+    setIsOpen(false)
+  }
 
   const NavLinks = ({ mobile = false }) => (
     <>
@@ -35,21 +57,46 @@ const Header = () => {
     </>
   )
 
+  const LoginButton = ({ mobile = false }) => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button className={mobile ? "w-full justify-start" : ""}>
+          Iniciar Sesión
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem onSelect={() => loginAs('buyer')}>
+          Acceder como cliente
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => loginAs('producer')}>
+          Acceder como productora
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+
   const AuthButtons = ({ mobile = false }) => (
     <>
-      <Button 
-        variant={mobile ? "outline" : "secondary"} 
-        onClick={() => setIsOpen(false)}
-        className={mobile ? "w-full justify-start text-accent-foreground" : ""}
-      >
-        Registrarse
-      </Button>
-      <Button 
-        onClick={() => setIsOpen(false)}
-        className={mobile ? "w-full justify-start" : ""}
-      >
-        Iniciar Sesión
-      </Button>
+      {userType ? (
+        <Button 
+          variant={mobile ? "outline" : "secondary"}
+          onClick={handleLogout}
+          className={mobile ? "w-full justify-start text-accent-foreground" : ""}
+        >
+          Cerrar Sesión
+        </Button>
+      ) : (
+        <>
+          <Button 
+            variant={mobile ? "outline" : "secondary"} 
+            onClick={() => setIsOpen(false)}
+            className={mobile ? "w-full justify-start text-accent-foreground" : ""}
+          >
+            Registrarse
+          </Button>
+          <LoginButton mobile={mobile} />
+        </>
+      )}
     </>
   )
 

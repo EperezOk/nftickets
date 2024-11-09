@@ -1,12 +1,15 @@
+'use client'
+
 import { redirect } from 'next/navigation'
-import { getUserType } from '../lib/auth'
+import { useAuthStore } from '@/store/auth-store'
 
 export default function Dashboard() {
-  const userType = getUserType()
+  const { userType } = useAuthStore()
   
   if (userType === 'buyer') {
     redirect('/dashboard/mis-entradas')
   } else {
+    // producer
     redirect('/dashboard/mis-eventos')
   }
 }
