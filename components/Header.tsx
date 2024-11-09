@@ -21,8 +21,8 @@ const Header = () => {
 
   const navItems = [
     ...(userType ? [{ href: '/dashboard', label: 'Dashboard' }] : []),
-    { href: '/productoras', label: 'Productoras' },
-    { href: '/reventas', label: 'Reventas' },
+    ...(userType !== 'buyer' ? [{ href: '/productoras', label: 'Productoras' }] : []),
+    ...(userType !== 'producer' ? [{ href: '/reventas', label: 'Reventas' }] : []),
   ]
 
   const loginAs = (userType: 'buyer' | 'producer') => {
