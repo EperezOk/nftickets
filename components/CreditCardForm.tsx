@@ -38,21 +38,21 @@ export default function CreditCardForm({ open, onOpenChange, itemName, amount }:
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="cardNumber">Número de tarjeta</Label>
+            <Label className="text-accent-foreground" htmlFor="cardNumber">Número de tarjeta</Label>
             <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="expiry">Fecha de vencimiento</Label>
+              <Label className="text-accent-foreground" htmlFor="expiry">Fecha de vencimiento</Label>
               <Input id="expiry" placeholder="MM/YY" />
             </div>
             <div>
-              <Label htmlFor="cvc">CVC</Label>
+              <Label className="text-accent-foreground" htmlFor="cvc">CVC</Label>
               <Input id="cvc" placeholder="123" />
             </div>
           </div>
           <div>
-            <Label htmlFor="name">Nombre en la tarjeta</Label>
+            <Label className="text-accent-foreground" htmlFor="name">Nombre en la tarjeta</Label>
             <Input id="name" placeholder="Juan Pérez" />
           </div>
           <Button type="submit" className="w-full">Comprar</Button>

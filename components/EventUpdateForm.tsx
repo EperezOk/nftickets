@@ -34,15 +34,15 @@ export default function EventUpdateForm({ open, onOpenChange, event }: EventUpda
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="name">Nombre del evento</Label>
+            <Label className="text-accent-foreground" htmlFor="name">Nombre del evento</Label>
             <Input id="name" defaultValue={event?.name} />
           </div>
           <div>
-            <Label htmlFor="date">Fecha</Label>
+            <Label className="text-accent-foreground" htmlFor="date">Fecha</Label>
             <Input id="date" defaultValue={event?.date} />
           </div>
           <div>
-            <Label htmlFor="description">Descripción</Label>
+            <Label className="text-accent-foreground" htmlFor="description">Descripción</Label>
             <Input id="description" />
           </div>
           <Button type="submit" className="w-full">Actualizar Evento</Button>
