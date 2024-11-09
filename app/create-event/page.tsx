@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useToast } from "@/hooks/use-toast"
 import Header from '../../components/Header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,6 +10,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 
 export default function Page() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [eventName, setEventName] = useState('')
   const [eventDate, setEventDate] = useState('')
   const [eventDescription, setEventDescription] = useState('')
@@ -19,7 +23,14 @@ export default function Page() {
     e.preventDefault()
     // Here you would typically send this data to your backend
     console.log('Event created:', { eventName, eventDate, eventDescription, ticketPrice, ticketQuantity, mediaLink })
-    // Reset form or redirect user
+    
+    toast({
+      title: "¡Evento creado!",
+      description: "El evento se ha creado exitosamente.",
+      variant: "success",
+    })
+    
+    router.push('/dashboard')
   }
 
   return (
@@ -34,7 +45,6 @@ export default function Page() {
               id="eventName"
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
-              required
             />
           </div>
           <div>
@@ -44,7 +54,6 @@ export default function Page() {
               type="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
-              required
             />
           </div>
           <div>
@@ -53,7 +62,6 @@ export default function Page() {
               id="eventDescription"
               value={eventDescription}
               onChange={(e) => setEventDescription(e.target.value)}
-              required
             />
           </div>
           <div>
@@ -64,7 +72,6 @@ export default function Page() {
               step="0.01"
               value={ticketPrice}
               onChange={(e) => setTicketPrice(e.target.value)}
-              required
             />
           </div>
           <div>
@@ -74,7 +81,6 @@ export default function Page() {
               type="number"
               value={ticketQuantity}
               onChange={(e) => setTicketQuantity(e.target.value)}
-              required
             />
           </div>
           <div>
@@ -84,7 +90,6 @@ export default function Page() {
               type="url"
               value={mediaLink}
               onChange={(e) => setMediaLink(e.target.value)}
-              required
             />
           </div>
           <Button type="submit">Crear Evento</Button>

@@ -1,7 +1,10 @@
+'use client'
+
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import Link from 'next/link'
+import EventUpdateForm from '@/components/EventUpdateForm'
 
 // Mock data for user's events
 const userEvents = [
@@ -10,6 +13,9 @@ const userEvents = [
 ]
 
 export default function MisEventos() {
+  const [selectedEvent, setSelectedEvent] = useState<null | { id: number; name: string; date: string; }>(null)
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Mis Eventos</h1>
@@ -23,13 +29,25 @@ export default function MisEventos() {
               <Image src={event.image} alt={event.name} width={300} height={200} className="rounded-md object-cover" />
               <p className="mt-2">Fecha: {event.date}</p>
               <p className="mt-2">Entradas Vendidas: {event.ticketsSold}</p>
-              <Link href={`/dashboard/mis-eventos/${event.id}`}>
-                <Button className="mt-4">Gestionar Evento</Button>
-              </Link>
+              <Button 
+                className="mt-4"
+                onClick={() => {
+                  setSelectedEvent({ id: event.id, name: event.name, date: event.date })
+                  setShowUpdateForm(true)
+                }}
+              >
+                Gestionar Evento
+              </Button>
             </CardContent>
           </Card>
         ))}
       </div>
+      
+      <EventUpdateForm 
+        open={showUpdateForm}
+        onOpenChange={setShowUpdateForm}
+        event={selectedEvent}
+      />
     </div>
   )
 }

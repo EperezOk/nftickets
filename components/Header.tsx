@@ -23,6 +23,7 @@ const Header = () => {
     ...(userType ? [{ href: '/dashboard', label: 'Dashboard' }] : []),
     ...(userType === null ? [{ href: '/productoras', label: 'Productoras' }] : []),
     ...(userType !== 'producer' ? [{ href: '/reventas', label: 'Reventas' }] : []),
+    ...(userType === 'producer' ? [{ href: '/create-event', label: 'Crear Evento' }] : []),
   ]
 
   const loginAs = (userType: 'buyer' | 'producer') => {
