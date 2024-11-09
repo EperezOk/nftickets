@@ -21,7 +21,7 @@ const Header = () => {
 
   const navItems = [
     ...(userType ? [{ href: '/dashboard', label: 'Dashboard' }] : []),
-    ...(userType !== 'buyer' ? [{ href: '/productoras', label: 'Productoras' }] : []),
+    ...(userType === null ? [{ href: '/productoras', label: 'Productoras' }] : []),
     ...(userType !== 'producer' ? [{ href: '/reventas', label: 'Reventas' }] : []),
   ]
 

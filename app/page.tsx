@@ -1,8 +1,13 @@
+'use client'
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Header from '../components/Header'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAuthStore } from '@/store/auth-store'
 
 // Mock data for featured events
 const featuredEvents = [
@@ -12,6 +17,17 @@ const featuredEvents = [
 ]
 
 export default function Home() {
+  const router = useRouter()
+  const { userType } = useAuthStore()
+
+  useEffect(() => {
+    if (userType === 'producer') {
+      router.replace('/productoras')
+    }
+  }, [userType, router])
+
+  if (userType === 'producer') return null
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
