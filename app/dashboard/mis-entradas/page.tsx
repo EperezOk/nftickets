@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -23,12 +25,20 @@ const userTickets = [
 
 export default function MisEntradas() {
   const [resellPrice, setResellPrice] = useState<string>('')
+  const router = useRouter()
+  const { toast } = useToast()
 
   const handleResell = (ticketId: number) => {
     // Here you would implement the actual reselling logic
     console.log(`Reselling ticket ${ticketId} for ${resellPrice}`)
-    // Reset the resell price
+    toast({
+      title: "¡Entrada puesta en reventa!",
+      description: `Tu entrada #${ticketId} está ahora en reventa por $${resellPrice}`,
+      variant: "success",
+    })
+    // Reset the resell price and redirect
     setResellPrice('')
+    router.push('/reventas')
   }
 
   return (

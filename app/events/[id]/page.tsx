@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Header from '../../../components/Header'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import CreditCardForm from '@/components/CreditCardForm'
 
 // Mock event data
 const event = {
@@ -18,6 +19,9 @@ const event = {
 
 export default function Page({ params }: { params: { id: string } }) {
   const [ticketQuantity, setTicketQuantity] = useState(1)
+  const [showPayment, setShowPayment] = useState(false)
+
+  const totalAmount = event.ticketPrice * ticketQuantity
 
   const handleBuyTicket = () => {
     // Here you would typically interact with your backend to process the ticket purchase
@@ -44,10 +48,16 @@ export default function Page({ params }: { params: { id: string } }) {
               <span>{ticketQuantity}</span>
               <Button onClick={() => setTicketQuantity(ticketQuantity + 1)}>+</Button>
             </div>
-            <Button onClick={handleBuyTicket}>Comprar Entrada(s)</Button>
+            <Button onClick={() => setShowPayment(true)}>Comprar Entrada(s)</Button>
           </div>
         </div>
       </main>
+      <CreditCardForm 
+        open={showPayment}
+        onOpenChange={setShowPayment}
+        itemName={`${ticketQuantity} entrada(s) para ${event.name}`}
+        amount={totalAmount}
+      />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Image from 'next/image'
+import CreditCardForm from '@/components/CreditCardForm'
 
 // Sample data for tickets on sale
 const sampleTickets = [
@@ -20,6 +21,8 @@ const sampleTickets = [
 export default function Reventas() {
   const [priceRange, setPriceRange] = useState({ min: '', max: '' })
   const [selectedGenres, setSelectedGenres] = useState<string[]>([])
+  const [selectedTicket, setSelectedTicket] = useState<null | { name: string, price: number }>(null)
+  const [showPayment, setShowPayment] = useState(false)
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenres(prev => 
@@ -97,7 +100,15 @@ export default function Reventas() {
                     <p>Fecha: {ticket.date}</p>
                     <p>Precio: ${ticket.price}</p>
                     <p>Vendedor: {ticket.seller}</p>
-                    <Button className="mt-4 w-full">Comprar</Button>
+                    <Button 
+                      className="mt-4 w-full" 
+                      onClick={() => {
+                        setSelectedTicket({ name: ticket.eventName, price: ticket.price })
+                        setShowPayment(true)
+                      }}
+                    >
+                      Comprar
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -105,6 +116,14 @@ export default function Reventas() {
           </div>
         </div>
       </main>
+      {selectedTicket && (
+        <CreditCardForm 
+          open={showPayment}
+          onOpenChange={setShowPayment}
+          itemName={selectedTicket.name}
+          amount={selectedTicket.price}
+        />
+      )}
     </div>
   )
 }
